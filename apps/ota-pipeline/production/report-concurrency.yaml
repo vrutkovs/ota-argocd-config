@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: report-concurrency
+spec:
+  hard:
+    pods: '10'
+  scopes:
+  - NotTerminating

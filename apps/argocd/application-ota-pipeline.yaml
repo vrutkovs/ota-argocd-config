@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ota-pipeline
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: ota-pipeline
+    server: 'https://kubernetes.default.svc'
+  project: ota
+  source:
+    path: apps/ota-pipeline/production
+    repoURL: 'https://github.com/vrutkovs/ota-argocd-config'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+  ignoreDifferences:
+  - group: batch
+    kind: CronJob
+    name: periodic-report
+    namespace: havi
+    jsonPointers:
+    - /spec/jobTemplate/spec/template/spec/containers/0/image

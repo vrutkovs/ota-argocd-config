@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: havi
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: havi
+    server: 'https://kubernetes.default.svc'
+  project: ota
+  source:
+    path: manifests/production
+    repoURL: 'https://github.com/vrutkovs/havi'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

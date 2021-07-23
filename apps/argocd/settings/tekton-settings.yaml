@@ -1,0 +1,20 @@
+apiVersion: operator.tekton.dev/v1alpha1
+kind: TektonConfig
+metadata:
+  name: config
+spec:
+  addon:
+    params:
+      - name: clusterTasks
+        value: 'true'
+      - name: pipelineTemplates
+        value: 'true'
+  pipeline:
+    params:
+      - name: enableMetrics
+        value: 'true'
+  profile: all
+  pruner:
+    keep: 1
+    schedule: '@daily'
+  targetNamespace: openshift-pipelines

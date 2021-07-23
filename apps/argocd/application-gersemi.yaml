@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gersemi
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: gersemi
+    server: 'https://kubernetes.default.svc'
+  project: ota
+  source:
+    path: manifests
+    repoURL: 'https://github.com/vrutkovs/gersemi'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

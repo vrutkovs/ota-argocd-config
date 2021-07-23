@@ -1,0 +1,41 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: eir-alerts
+spec:
+  groups:
+  - name: outdated-cache
+    rules:
+    - alert: EirOutdatedCacheAlert
+      expr: time() - eir_last_cache_unixtime > 14400
+      annotations:
+        summary: Cache file for Eir was generated more than 4 hours ago.
+      labels:
+        severity: critical
+    - alert: EirOutdatedResultsAlert
+      expr: time() - eir_last_success_unixtime > 14400
+      annotations:
+        summary: HTML reports were generated more than 4 hours ago.
+      labels:
+        severity: critical
+    - alert: EirTooManyFailuresAlert
+      expr: sum by (version, diagnosis) (sum_over_time(eir_version_status{status="failed"}[1h])) > 10
+      annotations:
+        summary: >
+          Too many failed upgrades to version {{ $labels.version }}: {{ $value }}
+      labels:
+        severity: warning
+    - alert: EirTooManySystemErrorsAlert
+      expr: sum by (version, diagnosis) (sum_over_time(eir_version_triaged{error_type="system"}[1h])) > 10
+      annotations:
+        summary: >
+          Too many {{ $labels.diagnosis }} failures in upgrades to version {{ $labels.version }}: {{ $value }}
+      labels:
+        severity: warning
+    - alert: EirTooManySystemErrorsAlert
+      expr: sum by (version, diagnosis) (sum_over_time(eir_version_triaged{error_type="unknown"}[1h])) > 10
+      annotations:
+        summary: >
+          Too many untriaged failures in upgrades to version {{ $labels.version }}: {{ $value }}
+      labels:
+        severity: warning

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ota
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  sourceRepos:
+    - '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+    - namespace: ota-pipeline-sandbox
+      server: https://kubernetes.default.svc
+    - namespace: ota-pipeline
+      server: https://kubernetes.default.svc
+    - namespace: havi
+      server: https://kubernetes.default.svc
+    - namespace: s3-proxy
+      server: https://kubernetes.default.svc
+    - namespace: gersemi
+      server: https://kubernetes.default.svc
+    - namespace: eir
+      server: https://kubernetes.default.svc

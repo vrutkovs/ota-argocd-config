@@ -1,0 +1,7 @@
+resources:
+- ../base/
+- ./cronjob.yaml
+- ./report-concurrency.yaml
+- ./alerts.yaml
+- ./scrape-pipeline.yaml
+- ./service-stats.yaml

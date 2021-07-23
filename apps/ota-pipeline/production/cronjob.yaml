@@ -1,0 +1,17 @@
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: periodic-report
+spec:
+  schedule: '@hourly'
+  concurrencyPolicy: Allow
+  suspend: false
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: periodic-reports
+              image: image-registry.openshift-image-registry.svc:5000/havi/havi:latest
+          serviceAccountName: pipeline
+          restartPolicy: OnFailure

@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: edge-upgrade-report
+spec:
+  params:
+    - name: from
+      type: string
+    - name: to
+      type: string
+  steps:
+    - name: version-report
+      command:
+      - /usr/libexec/s2i/run
+      workingDir: /opt/app-root/src
+      image: image-registry.openshift-image-registry.svc:5000/gersemi/gersemi:latest
+      volumeMounts:
+        - name: settings
+          mountPath: /opt/app-root/src/settings
+      env:
+      - name: CACHED_REPORT
+        value: "cached-report"
+      - name: FROM_VERSION
+        value: "$(params.from)"
+      - name: VERSIONS
+        value: "$(params.to)"
+      - name: REPORT_OUTPUT_PATH
+        value: /tmp
+      - name: S3_URL
+        valueFrom:
+          secretKeyRef:
+            name: s3-creds
+            key: endpoint
+      - name: S3_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: s3-creds
+            key: access-key-id
+      - name: S3_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: s3-creds
+            key: secret-access-key
+      - name: S3_BUCKET
+        valueFrom:
+          secretKeyRef:
+            name: s3-creds
+            key: bucket
+  volumes:
+    - name: settings
+      secret:
+        secretName: settings

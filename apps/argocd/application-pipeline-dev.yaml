@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ota-pipeline-sandbox
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: ota-pipeline-sandbox
+    server: 'https://kubernetes.default.svc'
+  project: ota
+  source:
+    path: .
+    repoURL: https://github.com/vrutkovs/ota-pipeline-sandbox
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

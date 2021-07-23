@@ -1,0 +1,5 @@
+resources:
+- ./allow-running-havi.yaml
+- ./tekton-edge-upgrade-report.yaml
+- ./tekton-stats-report.yaml
+- ./tekton-version-report.yaml
