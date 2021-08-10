@@ -28,7 +28,7 @@ The manifests there would do the following:
   * allow route controller set hosts in Routes
   * ignore objects created by Pipelines
 * `application-sealed-secrets.yaml` - deploy Bitnami's Sealed Secrets controller from `./sealed-secrets`
-* `application-cluster-config.yaml` - apply cluster config from `./argocd`
+* `application-cluster-config.yaml` - apply cluster config from `./apps/argocd`
 
 ### Sealed Secrets
 
@@ -39,7 +39,7 @@ By default the controller would autogenerate the keys, in order to have a reusab
 
 ### ArgoCD configuration
 
-`./argocd` deploys several OTA pipeline projects, grouped as "ota" ArgoCD project. It also sets up User Workload Monitoring, AlertManager config and encrypted secrets for S3, Hydra and repo access.
+`./apps/argocd` deploys several OTA pipeline projects, grouped as "ota" ArgoCD project. It also sets up User Workload Monitoring, AlertManager config and encrypted secrets for S3, Hydra and repo access.
 
 ### TODO:
 
