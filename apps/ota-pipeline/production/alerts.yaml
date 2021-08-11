@@ -19,21 +19,21 @@ spec:
       labels:
         severity: critical
     - alert: EirTooManyFailuresAlert
-      expr: sum by (version, diagnosis) (sum_over_time(eir_version_status{status="failed"}[1h])) > 10
+      expr: sum by (version) (max_over_time(eir_version_status{status="failed"}[1h])) > 10
       annotations:
         summary: >
           Too many failed upgrades to version {{ $labels.version }}: {{ $value }}
       labels:
         severity: warning
     - alert: EirTooManySystemErrorsAlert
-      expr: sum by (version, diagnosis) (sum_over_time(eir_version_triaged{error_type="system"}[1h])) > 10
+      expr: sum by (version, diagnosis) (max_over_time(eir_version_triaged{error_type="system"}[1h])) > 10
       annotations:
         summary: >
           Too many {{ $labels.diagnosis }} failures in upgrades to version {{ $labels.version }}: {{ $value }}
       labels:
         severity: warning
     - alert: EirTooManySystemErrorsAlert
-      expr: sum by (version, diagnosis) (sum_over_time(eir_version_triaged{error_type="unknown"}[1h])) > 10
+      expr: sum by (version, diagnosis) (max_over_time(eir_version_triaged{error_type="unknown"}[1h])) > 10
       annotations:
         summary: >
           Too many untriaged failures in upgrades to version {{ $labels.version }}: {{ $value }}
