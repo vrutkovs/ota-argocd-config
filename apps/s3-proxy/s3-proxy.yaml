@@ -3,6 +3,8 @@ apiVersion: apps/v1
 metadata:
   annotations:
     alpha.image.policy.openshift.io/resolve-names: '*'
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"s3-proxy:latest","namespace":"s3-proxy"},"fieldPath":"spec.template.spec.containers[?(@.name==\"s3-proxy\")].image","pause":"false"}]
   name: s3-proxy
   labels:
     app: s3-proxy
