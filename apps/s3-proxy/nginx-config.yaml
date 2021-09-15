@@ -45,15 +45,15 @@ data:
             }
 
             location / {
-              try_files $uri @wasabi;
+              try_files $uri @awss3;
             }
 
-            set $backend "http://s3.eu-central-1.wasabisys.com:80";
+            set $backend "https://https://s3.us-east-1.amazonaws.com";
 
-            location @wasabi {
+            location @awss3 {
               resolver 8.8.8.8;
-              proxy_set_header Host 's3.wasabisys.com';
-              proxy_pass $backend/ota-reports-temp$uri;
+              proxy_set_header Host 's3.us-east-1.amazonaws.com';
+              proxy_pass $backend/ota-reports-stage$uri;
               proxy_intercept_errors on;
               proxy_redirect off;
               proxy_set_header X-Real-IP $remote_addr;
