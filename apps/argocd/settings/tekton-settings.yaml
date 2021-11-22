@@ -18,6 +18,9 @@ spec:
         value: 'true'
   profile: all
   pruner:
-    keep: 1
+    resources:
+      - taskrun
+      - pipelinerun
+    keep: 3
     schedule: '@daily'
   targetNamespace: openshift-pipelines
