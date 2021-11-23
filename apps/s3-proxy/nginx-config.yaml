@@ -32,6 +32,9 @@ data:
 
         include /opt/app-root/etc/nginx.d/*.conf;
 
+        proxy_cache_path   /tmp/ levels=1:2 keys_zone=s3_cache:10m max_size=500m
+                           inactive=60m use_temp_path=off;
+
         server {
             listen       8080 default_server;
             listen       [::]:8080 default_server;
