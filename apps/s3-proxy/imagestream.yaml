@@ -5,3 +5,10 @@ metadata:
 spec:
   lookupPolicy:
     local: false
+  tags:
+      - name: latest
+        from:
+          kind: DockerImage
+          name: 'ghcr.io/nginxinc/nginx-s3-gateway/nginx-oss-s3-gateway:latest'
+        referencePolicy:
+          type: Local

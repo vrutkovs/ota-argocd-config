@@ -8,7 +8,7 @@ spec:
     name: s3-proxy
     weight: 100
   port:
-    targetPort: 8080
+    targetPort: 80
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
