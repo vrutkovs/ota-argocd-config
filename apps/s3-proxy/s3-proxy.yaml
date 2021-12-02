@@ -16,7 +16,7 @@ metadata:
     app.openshift.io/runtime-namespace: s3-proxy
     app.openshift.io/runtime-version: latest
 spec:
-  replicas: 3
+  replicas: 0
   selector:
     matchLabels:
       app: s3-proxy
