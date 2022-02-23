@@ -28,7 +28,8 @@ spec:
             {{ range .Alerts }}{{ .Annotations.description }}
             {{ end }}
           title: |-
-            {{ range .Alerts }}{{ .Annotations.summary }}
-            {{ end }}
+            [{{ .Status | toUpper -}}
+            {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+            ] {{ .CommonLabels.alertname }}
   route:
     receiver: slack-notifications
