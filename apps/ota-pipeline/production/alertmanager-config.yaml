@@ -54,5 +54,6 @@ spec:
             [{{ .Status | toUpper -}}
             {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
             ] {{ .CommonLabels.alertname }}
+          sendResolved: true
   route:
     receiver: slack-notifications
