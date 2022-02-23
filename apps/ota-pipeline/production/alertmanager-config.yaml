@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  labels:
+    openshift.io/cluster-monitoring: 'true'
+  name: slack-alert-config
+spec:
+  receivers:
+    - name: slack-notifications
+      slackConfigs:
+        - apiURL:
+            key: apiURL
+            name: alert-slack
+          channel: '#general'
+          text: |-
+            {{ range .Alerts }}{{ .Annotations.description }}
+            {{ end }}
+          title: |-
+            {{ range .Alerts }}{{ .Annotations.summary }}
+            {{ end }}
+  route:
+    receiver: slack-notifications
