@@ -68,6 +68,6 @@ spec:
                 alertname%3D"{{- .CommonLabels.alertname -}}"%7D
             - type: button
               text: 'Report :scroll:'
-              url: https://ota-reports.apps.ocp4.prod.psi.redhat.com/{{ .CommonLabels.version }}
+              url: https://ota-reports.apps.ocp4.prod.psi.redhat.com/{{- (index .Alerts 0).Labels.version -}}.html
   route:
     receiver: slack-notifications
